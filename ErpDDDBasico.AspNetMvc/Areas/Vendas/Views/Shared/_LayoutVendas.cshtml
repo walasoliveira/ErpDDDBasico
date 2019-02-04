@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erp Basic - Vendas</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+            <div class="container">
+                @Html.ActionLink("ERP Basic", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item efetuar-pedido">@Html.ActionLink("Efetuar Pedido", "EfetuarPedido", "Home", new { area = "Vendas" }, new { @class = "nav-link" })</li>
+                        <li class="nav-item historico-pedidos">@Html.ActionLink("Histórico", "HistoricoPedidos", "Home", new { area = "Vendas" }, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.RouteLink("Sign out", new { action = "Logout", controller = "Home", area = "" }, new { @class = "nav-link" })</li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Erp Basic</p>
+        </footer>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script>
+        $(function () {
+            var menu = '@TempData["Menu"]';
+            if (menu == 'home' || menu == null || menu == '') {
+                $(".home").addClass("active");
+            }
+            else if (menu == 'iniciar-atendimento') {
+                $(".iniciar-atendimento").addClass("active");
+            }
+            else {
+                $(".historico-pedidos").addClass("active");
+            }
+
+            $("#PedidoDetalhe_ProdutoModel").change(function (e) {
+                var id = $(this).val();
+                var url = '@Url.Action("BuscarValorProduto", "Home",new { area = "Vendas"})/' + id;
+                $.ajax({
+                    url: url,
+                    method: 'GET',
+                    success: function (data) {
+                        $("#PedidoDetalhe_ValorUnitario").val(data);
+                    },
+                    error: function (request, status, error) {
+                        console.log(request.responseText);
+                        console.log(status);
+                        console.log(error);
+                    }
+                });
+            });
+    });
+    </script>
+</body>
+</html>

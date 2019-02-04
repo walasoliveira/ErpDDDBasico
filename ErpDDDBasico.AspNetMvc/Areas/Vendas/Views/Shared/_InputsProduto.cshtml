@@ -1,0 +1,24 @@
+﻿@*@model ErpDDDBasico.AspNetMvc.Models.ProdutoModel
+<div class="form-group">
+    @Html.LabelFor(model => model.PedidoDetalhe.ProdutoModel, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.DropDownListFor(model => model.PedidoDetalhe.ProdutoModel, new SelectList(ViewBag.Produtos, "Nome", "ProdutoId"), "Selecione...", new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.PedidoDetalhe.ProdutoModel, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.PedidoDetalhe.ValorUnitario, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.PedidoDetalhe.ValorUnitario, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.PedidoDetalhe.ValorUnitario, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.PedidoDetalhe.ValorDesconto, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.PedidoDetalhe.ValorDesconto, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.PedidoDetalhe.ValorDesconto, "", new { @class = "text-danger" })
+    </div>
+</div>*@

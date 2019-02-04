@@ -1,0 +1,72 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - Presentation", "0 - Presentation", "{D816C3BF-6735-4E35-91E3-C63714E5DC17}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Services", "1 - Services", "{4DC8AEE5-CA45-48F3-80AD-76D5B6ECBDE8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Application", "2 - Application", "{C7190DFF-F111-4E3C-956D-330A97977B89}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Domain", "3 - Domain", "{86778F71-4845-457E-9A7F-F3A7D09D2156}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Infra", "4 - Infra", "{A1AEEA7B-DE80-4A84-B49A-EE8E290DDF4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErpDDDBasico.AspNetMvc", "ErpDDDBasico.AspNetMvc\ErpDDDBasico.AspNetMvc.csproj", "{C03FFFAE-2417-42D8-9C36-E0AC72442A94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErpDDDBasico.Application", "ErpDDDBasico.Application\ErpDDDBasico.Application.csproj", "{38119BEC-D102-43E8-AE65-37A3B1B2516F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErpDDDBasico.Domain", "ErpDDDBasico.Domain\ErpDDDBasico.Domain.csproj", "{6110526D-4A7D-46BD-9213-D6F8A0F069D2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.1 - CrossCutting", "4.1 - CrossCutting", "{EF88B047-ECB5-42B0-901F-6B6053C8A91B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.2 - Data", "4.2 - Data", "{65ED756E-588F-426F-B4A8-23AC5A0E543A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErpDDDBasico.Infra.Data", "ErpDDDBasico.Infra.Data\ErpDDDBasico.Infra.Data.csproj", "{62A9C3E4-DD96-4112-9E38-D88152F0AFC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErpDDDBasico.Infra.CrossCutting.IoC", "ErpDDDBasico.Infra.CrossCutting.IoC\ErpDDDBasico.Infra.CrossCutting.IoC.csproj", "{0B460B57-C29B-4BAF-A6B9-56FA527F8DC2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C03FFFAE-2417-42D8-9C36-E0AC72442A94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C03FFFAE-2417-42D8-9C36-E0AC72442A94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C03FFFAE-2417-42D8-9C36-E0AC72442A94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C03FFFAE-2417-42D8-9C36-E0AC72442A94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38119BEC-D102-43E8-AE65-37A3B1B2516F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38119BEC-D102-43E8-AE65-37A3B1B2516F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38119BEC-D102-43E8-AE65-37A3B1B2516F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38119BEC-D102-43E8-AE65-37A3B1B2516F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6110526D-4A7D-46BD-9213-D6F8A0F069D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6110526D-4A7D-46BD-9213-D6F8A0F069D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6110526D-4A7D-46BD-9213-D6F8A0F069D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6110526D-4A7D-46BD-9213-D6F8A0F069D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62A9C3E4-DD96-4112-9E38-D88152F0AFC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62A9C3E4-DD96-4112-9E38-D88152F0AFC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62A9C3E4-DD96-4112-9E38-D88152F0AFC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62A9C3E4-DD96-4112-9E38-D88152F0AFC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B460B57-C29B-4BAF-A6B9-56FA527F8DC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B460B57-C29B-4BAF-A6B9-56FA527F8DC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B460B57-C29B-4BAF-A6B9-56FA527F8DC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B460B57-C29B-4BAF-A6B9-56FA527F8DC2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C03FFFAE-2417-42D8-9C36-E0AC72442A94} = {D816C3BF-6735-4E35-91E3-C63714E5DC17}
+		{38119BEC-D102-43E8-AE65-37A3B1B2516F} = {C7190DFF-F111-4E3C-956D-330A97977B89}
+		{6110526D-4A7D-46BD-9213-D6F8A0F069D2} = {86778F71-4845-457E-9A7F-F3A7D09D2156}
+		{EF88B047-ECB5-42B0-901F-6B6053C8A91B} = {A1AEEA7B-DE80-4A84-B49A-EE8E290DDF4E}
+		{65ED756E-588F-426F-B4A8-23AC5A0E543A} = {A1AEEA7B-DE80-4A84-B49A-EE8E290DDF4E}
+		{62A9C3E4-DD96-4112-9E38-D88152F0AFC6} = {65ED756E-588F-426F-B4A8-23AC5A0E543A}
+		{0B460B57-C29B-4BAF-A6B9-56FA527F8DC2} = {EF88B047-ECB5-42B0-901F-6B6053C8A91B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {781DE094-A460-42B9-975C-B6588AB086AB}
+	EndGlobalSection
+EndGlobal

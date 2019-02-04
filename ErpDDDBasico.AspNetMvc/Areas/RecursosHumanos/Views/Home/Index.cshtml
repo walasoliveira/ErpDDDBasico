@@ -1,0 +1,50 @@
+﻿@{
+    Layout = "~/Areas/RecursosHumanos/Views/Shared/_LayoutRecursosHumanos.cshtml";
+}
+<br />
+<h1>
+    Área Recursos Humanos
+</h1>
+<br />
+<div>
+    5 últimos funcionários mais recentes
+    <table class="table">
+        <tr>
+            <th>
+                Nome
+            </th>
+            <th>
+                Setor
+            </th>
+            <th>
+                E-mail
+            </th>
+            <th>
+                Ramal
+            </th>
+            <th>
+                Data de registro
+            </th>
+        </tr>
+        @foreach (var item in ViewBag.Funcionarios)
+        {
+            <tr>
+                <td>
+                    @item.Nome + @item.SobreNome
+                </td>
+                <td>
+                    @item.Setor
+                </td>
+                <td>
+                    @item.Email
+                </td>
+                <td>
+                    @item.Ramal
+                </td>
+                <td>
+                    @item.DataCadastro
+                </td>
+            </tr>
+        }
+    </table>
+</div>
