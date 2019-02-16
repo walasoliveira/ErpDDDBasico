@@ -110,13 +110,11 @@
         if (produto != null) {
             $('#card-' + produto.GuidPedidoDetalhe).remove();
 
-            var valorPedido = (produto.ValorFinal == null) ? produto.ValorUnitario : produto.ValorFinal;
-
             var aux = '<div id=\'card-' + produto.GuidPedidoDetalhe + '\' class=\'card\' style=\'width: 18rem;\'>'
                 + '<div class=\'card-body\'>'
                 + '<h5 class=\'card-title\'>' + produto.Nome + '</h5>'
-                + '<p class=\'card-text\'>' + valorPedido + '</p>'
-                + '<button onclick=\'alterarProduto(' + produto + ')\' class=\'btn btn-danger\' style=\'margin-right: 5px;\'>Alterar</button>'
+                + '<p class=\'card-text\'>' + produto.ValorFinal + '</p>'
+                + '<button onclick=\'alterarProduto(' + JSON.stringify(produto) + ')\' class=\'btn btn-danger\' style=\'margin-right: 5px;\'>Alterar</button>'
                 + '<button onclick=\'removerProduto("' + produto.GuidPedidoDetalhe + '")\' class=\'btn btn-danger\'>Excluir</button></div></div>';
             $(".produtos-added").append(aux);
         }
@@ -126,7 +124,10 @@
         $('#card-' + guid).toggle();
         $('#btn-submit').val("Incluir");
         $('#btn-cancelar').css("display", "none");
+        limparFormularioAdicionarProduto();
+    }
 
+    function limparFormularioAdicionarProduto() {
         $("#idPedidoDetalhe").val(null);
 
         $("#form-produto #ValorUnitario").val(null);
@@ -149,16 +150,7 @@
                 var obj = JSON.parse(data);
                 $('#card-' + obj.GuidPedidoDetalhe).remove();
 
-                $("#idPedidoDetalhe").val(null);
-
-                $("#form-produto #ValorUnitario").val(null);
-                $("#form-produto #ValorUnitarioBloqueado").val(null);
-
-                $("#form-produto #ValorDesconto").val(null);
-                $("#form-produto #ValorDescontoBloqueado").val(null);
-
-                $("#form-produto #ValorFinal").val(null);
-                $("#form-produto #ValorFinalBloqueado").val(null);
+                limparFormularioAdicionarProduto();
             },
             error: function (request, status, error) {
                 console.log(request.responseText);
@@ -181,18 +173,10 @@
 
         $('#ProdutoId').val(produto.ProdutoId);
 
-        $("#form-produto #ValorUnitario").val(produto.ValorUnitario);
-        $("#form-produto #ValorUnitarioBloqueado").val(produto.ValorUnitario);
+        $("#ValorUnitario").maskMoney("mask", parseFloat(produto.ValorUnitario.replace(".","")));
 
-        $("#form-produto #ValorDesconto").val(produto.ValorDesconto);
-        $("#form-produto #ValorDescontoBloqueado").val(produto.ValorDesconto);
+        $("#ValorDesconto").maskMoney("mask", parseFloat(produto.ValorDesconto.replace(".", "")));
 
-        var valorPedido = (produto.ValorFinal == null) ? produto.ValorUnitario : produto.ValorFinal;
-
-        $("#form-produto #ValorFinal").val(valorPedido);
-        $("#form-produto #ValorFinalBloqueado").val(valorPedido);
-
-        $(".money").mask('000.000.000.000.000,00', { reverse: false });
-        $(".money").mask('000.000.000.000.000,00', { reverse: true });
+        $("#ValorFinal").maskMoney("mask", parseFloat(produto.ValorFinal.replace(".","")));
     }
 </script>

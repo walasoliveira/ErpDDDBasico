@@ -2,6 +2,8 @@
 using ErpDDDBasico.AspNetMvc.Models;
 using ErpDDDBasico.AspNetMvc.ViewModels;
 using ErpDDDBasico.Domain.Entities;
+using System;
+using System.Globalization;
 
 namespace ErpDDDBasico.AspNetMvc.AutoMapper
 {
@@ -41,7 +43,8 @@ namespace ErpDDDBasico.AspNetMvc.AutoMapper
             CreateMap<Produto, ProdutoModel>();
             CreateMap<Modulo, ModuloModel>();
             CreateMap<TipoPagamento, TipoPagamentoModel>();
-            CreateMap<Pagamento, PagamentoViewModel>();
+            CreateMap<Pagamento, PagamentoViewModel>()
+                .ForPath(destino => destino.Valor, origem => origem.MapFrom(p => Convert.ToDecimal(p.Valor).ToString("N2", new CultureInfo("pt-br") { NumberFormat = new NumberFormatInfo { NumberDecimalSeparator = ",", NumberGroupSeparator = "." } })));
         }
     }
 }

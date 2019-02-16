@@ -18,8 +18,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.ValorUnitario, htmlAttributes: new { @class = "control-label col-md-2" })
         <div>
-            @Html.HiddenFor(model => model.ValorUnitario)
-            @Html.Editor("ValorUnitarioBloqueado", "", new { htmlAttributes = new { @class = "form-control money", @disabled = true } })
+            @Html.EditorFor(m => m.ValorUnitario, "", new { htmlAttributes = new { @class = "form-control money", @style="background-color: #e9ecef;opacity: 1;", @readonly = true}})
         </div>
     </div>
     <div class="form-group">
@@ -32,8 +31,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.ValorFinal, htmlAttributes: new { @class = "control-label col-md-2" })
         <div>
-            @Html.HiddenFor(model => model.ValorFinal)
-            @Html.Editor("ValorFinalBloqueado", "", new { htmlAttributes = new { @class = "form-control money", @disabled = true } })
+            @Html.EditorFor(m=>m.ValorFinal, "", new { htmlAttributes = new { @class = "form-control money", @style = "background-color: #e9ecef;opacity: 1;", @readonly = true } })
         </div>
     </div>
     <div class="form-group">
@@ -64,16 +62,7 @@
                 if (id == "" || id == null) {
                     $('#ProdutoId').val(null);
 
-                    $("#id").val(null);
-
-                    $("#form-produto #ValorUnitario").val(null);
-                    $("#form-produto #ValorUnitarioBloqueado").val(null);
-
-                    $("#form-produto #ValorDesconto").val(null);
-                    $("#form-produto #ValorDescontoBloqueado").val(null);
-
-                    $("#form-produto #ValorFinal").val(null);
-                    $("#form-produto #ValorFinalBloqueado").val(null);
+                    limparFormularioAdicionarProduto();
                 }
                 else {
                     var url = '@Url.Action("BuscarValorProduto", "Home",new { area = "Vendas"})/' + id;
@@ -81,13 +70,10 @@
                         url: url,
                         method: 'GET',
                         success: function (data) {
-                            var valorDecimal = parseFloat(data);
-                            var valorString = data.replace(".", ",");
-                            $("#ValorUnitarioBloqueado").maskMoney("mask", valorDecimal);
-                            $("#ValorUnitario").val(valorString);
+                            var valor = parseFloat(data);
+                            $("#ValorUnitario").maskMoney("mask", valor);
 
-                            $("#ValorFinalBloqueado").maskMoney("mask", valorDecimal);
-                            $("#ValorFinal").val(valorString);
+                            $("#ValorFinal").maskMoney("mask", valor);
                         },
                         error: function (request, status, error) {
                             console.log(request.responseText);
@@ -99,22 +85,18 @@
             });
 
             $("#ValorDesconto").keyup(function (e) {
-                var aux = parseFloat($(this).val().replace(/\./g, "").replace(",", "."));
+                var valorDesconto = parseFloat($(this).val().replace(/\./g, "").replace(",", "."));
 
-                if (aux != "NaN") {
-                    var valorUnitario = parseFloat($("#ValorUnitarioBloqueado").val().replace(".", "").replace(",", ".")).toFixed(2);
-
-                    var valorDesconto = aux;
+                if (valorDesconto != "NaN") {
+                    var valorUnitario = parseFloat($("#ValorUnitario").val().replace(".", "").replace(",", ".")).toFixed(2);
 
                     var valorFinal = valorUnitario - valorDesconto;
 
                     var aux = valorFinal.toFixed(2);
-                    $("#ValorFinalBloqueado").maskMoney("mask", parseFloat(aux));
-                    $("#ValorFinal").val(aux.toString().replace(".", ","));
+                    $("#ValorFinal").maskMoney("mask", parseFloat(aux));
                 }
                 else {
                     $("#ValorFinal").val($("#ValorUnitario").val());
-                    $("#ValorFinalBloqueado").val($("#ValorUnitarioBloqueado").val());
                 };
             });
 

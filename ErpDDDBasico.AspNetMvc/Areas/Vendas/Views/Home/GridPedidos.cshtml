@@ -44,8 +44,21 @@
     {
         <tr>
             <td>@item.Cliente.Nome</td>
+            <td>
+                @{
+                    decimal dec = Convert.ToDecimal(item.ValorTotal);
+                    IFormatProvider portuguese = new System.Globalization.CultureInfo("pt-pt")
+                    {
+                        NumberFormat = new System.Globalization.NumberFormatInfo
+                        {
+                            NumberDecimalSeparator = ",",
+                            NumberGroupSeparator = "."
+                        }
+                    };
+                    @: @dec.ToString("N2", portuguese)
+                }
+            </td>
             <td>@item.DataCadastro</td>
-            <td>@item.ValorTotal</td>
         </tr>
     }
 </table>

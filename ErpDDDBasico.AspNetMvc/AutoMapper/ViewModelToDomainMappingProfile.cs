@@ -2,6 +2,7 @@
 using ErpDDDBasico.AspNetMvc.Models;
 using ErpDDDBasico.AspNetMvc.ViewModels;
 using ErpDDDBasico.Domain.Entities;
+using System;
 
 namespace ErpDDDBasico.AspNetMvc.AutoMapper
 {
@@ -30,7 +31,7 @@ namespace ErpDDDBasico.AspNetMvc.AutoMapper
                 .ForPath(destino => destino.Endereco.Cidade, origem => origem.MapFrom(c => c.Cidade))
                 .ForPath(destino => destino.Pedido, origem => origem.Ignore());
 
-            CreateMap<PedidoViewModel,Pedido>()
+            CreateMap<PedidoViewModel, Pedido>()
                 .ForPath(destino => destino.Cliente, origem => origem.MapFrom(u => u.Cliente))
                 .ForPath(destino => destino.Cliente.Endereco.Logradouro, origem => origem.MapFrom(u => u.Cliente.Logradouro))
                 .ForPath(destino => destino.Cliente.Endereco.Numero, origem => origem.MapFrom(u => u.Cliente.Numero))
@@ -43,6 +44,9 @@ namespace ErpDDDBasico.AspNetMvc.AutoMapper
                 .ForPath(destino => destino.PedidoDetalhes, origem => origem.Ignore());
 
             CreateMap<PedidoDetalheViewModel, PedidoDetalhes>()
+                .ForMember(destino => destino.ValorUnitario, origem => origem.MapFrom(p => Convert.ToDecimal(p.ValorUnitario.Replace(".", "").Replace(",", "."))))
+                .ForMember(destino => destino.ValorDesconto, origem => origem.MapFrom(p => Convert.ToDecimal(p.ValorDesconto.Replace(".", "").Replace(",", "."))))
+                .ForMember(destino => destino.ValorFinal, origem => origem.MapFrom(p => Convert.ToDecimal(p.ValorFinal.Replace(".", "").Replace(",", "."))))
                 .ForPath(destino => destino.Pedido, origem => origem.Ignore());
 
             CreateMap<ProdutoModel, Produto>();
@@ -51,6 +55,7 @@ namespace ErpDDDBasico.AspNetMvc.AutoMapper
             CreateMap<PagamentoViewModel, Pagamento>()
                 .ForPath(destino => destino.FuncionarioId, origem => origem.MapFrom(u => u.Funcionario.FuncionarioId))
                 .ForPath(destino => destino.TipoPagamentoId, origem => origem.MapFrom(u => u.TipoPagamento.TipoPagamentoId))
+                .ForMember(destino => destino.Valor, origem => origem.MapFrom(u => Convert.ToDecimal(u.Valor)))
                 .ForPath(destino => destino.TipoPagamento.Descricao, origem => origem.Ignore())
                 .ForPath(destino => destino.Funcionario.Endereco, origem => origem.Ignore())
                 .ForPath(destino => destino.Funcionario.NumeroBilheteUnico, origem => origem.Ignore())

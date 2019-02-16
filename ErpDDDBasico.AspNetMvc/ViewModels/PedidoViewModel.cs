@@ -1,7 +1,6 @@
 ﻿using ErpDDDBasico.AspNetMvc.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace ErpDDDBasico.AspNetMvc.ViewModels
 {
@@ -9,7 +8,6 @@ namespace ErpDDDBasico.AspNetMvc.ViewModels
     {
         public int PedidoId { get; set; }
 
-        [Required(ErrorMessage = "Campo obrigatorio.")]
         public ClienteModel Cliente { get; set; }
 
         public UsuarioModel Usuario { get; set; }

@@ -19,7 +19,7 @@ namespace ErpDDDBasico.AspNetMvc.ViewModels
         public FuncionarioModel Funcionario { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatório.")]
-        public decimal Valor { get; set; }
+        public string Valor { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatório.")]
         public TipoPagamentoModel TipoPagamento { get; set; }

@@ -76,7 +76,7 @@ namespace ErpDDDBasico.AspNetMvc.Areas.Vendas.Controllers
                 GuidPedidoDetalhe = guid,
                 ProdutoId = prd.ProdutoId,
                 Nome = prd.Nome,
-                ValorUnitario = prd.Preco,
+                ValorUnitario = Convert.ToString(prd.Preco),
                 ValorDesconto = pedidoDetalheViewModel.ValorDesconto,
                 ValorFinal = pedidoDetalheViewModel.ValorFinal
             });
@@ -202,10 +202,10 @@ namespace ErpDDDBasico.AspNetMvc.Areas.Vendas.Controllers
                     pedidoViewModels = pedidoViewModels.OrderByDescending(p => p.Cliente.Nome).ToList();
                     break;
                 case "valor_final_desc":
-                    pedidoViewModels = pedidoViewModels.OrderByDescending(p => p.Cliente.Nome).ToList();
+                    pedidoViewModels = pedidoViewModels.OrderByDescending(p => p.ValorTotal).ToList();
                     break;
                 case "valor_final_cre":
-                    pedidoViewModels = pedidoViewModels.OrderBy(p => p.Cliente.Nome).ToList();
+                    pedidoViewModels = pedidoViewModels.OrderBy(p => p.ValorTotal).ToList();
                     break;
                 case "data_pedido_desc":
                     pedidoViewModels = pedidoViewModels.OrderByDescending(p => p.DataCadastro).ToList();
