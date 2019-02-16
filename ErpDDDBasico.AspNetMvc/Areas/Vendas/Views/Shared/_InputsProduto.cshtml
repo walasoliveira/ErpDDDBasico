@@ -1,24 +1,32 @@
-﻿@*@model ErpDDDBasico.AspNetMvc.Models.ProdutoModel
+﻿@model ErpDDDBasico.AspNetMvc.ViewModels.PedidoDetalheViewModel
 <div class="form-group">
-    @Html.LabelFor(model => model.PedidoDetalhe.ProdutoModel, htmlAttributes: new { @class = "control-label col-md-2" })
+    @Html.LabelFor(model => model.ProdutoModel.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
     <div class="col-md-10">
-        @Html.DropDownListFor(model => model.PedidoDetalhe.ProdutoModel, new SelectList(ViewBag.Produtos, "Nome", "ProdutoId"), "Selecione...", new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.PedidoDetalhe.ProdutoModel, "", new { @class = "text-danger" })
+        @Html.DropDownListFor(model => model.ProdutoModel.Nome, new SelectList(ViewBag.Produtos, "Nome", "ProdutoId"), "Selecione...", new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.ProdutoModel.Nome, "", new { @class = "text-danger" })
     </div>
 </div>
 
 <div class="form-group">
-    @Html.LabelFor(model => model.PedidoDetalhe.ValorUnitario, htmlAttributes: new { @class = "control-label col-md-2" })
+    @Html.LabelFor(model => model.ValorUnitario, htmlAttributes: new { @class = "control-label col-md-2" })
     <div class="col-md-10">
-        @Html.EditorFor(model => model.PedidoDetalhe.ValorUnitario, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.PedidoDetalhe.ValorUnitario, "", new { @class = "text-danger" })
+        @Html.EditorFor(model => model.ValorUnitario, new { htmlAttributes = new { @class = "form-control", @disabled = true } })
+        @Html.ValidationMessageFor(model => model.ValorUnitario, "", new { @class = "text-danger" })
     </div>
 </div>
 
 <div class="form-group">
-    @Html.LabelFor(model => model.PedidoDetalhe.ValorDesconto, htmlAttributes: new { @class = "control-label col-md-2" })
+    @Html.LabelFor(model => model.ValorDesconto, htmlAttributes: new { @class = "control-label col-md-2" })
     <div class="col-md-10">
-        @Html.EditorFor(model => model.PedidoDetalhe.ValorDesconto, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.PedidoDetalhe.ValorDesconto, "", new { @class = "text-danger" })
+        @Html.EditorFor(model => model.ValorDesconto, new { htmlAttributes = new { @class = "form-control",  } })
+        @Html.ValidationMessageFor(model => model.ValorDesconto, "", new { @class = "text-danger" })
     </div>
-</div>*@
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.ValorFinal, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.ValorFinal, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.ValorFinal, "", new { @class = "text-danger" })
+    </div>
+</div>

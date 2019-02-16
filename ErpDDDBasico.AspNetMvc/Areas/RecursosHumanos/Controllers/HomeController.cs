@@ -3,6 +3,7 @@ using ErpDDDBasico.Application.Interfaces;
 using ErpDDDBasico.AspNetMvc.Models;
 using ErpDDDBasico.AspNetMvc.ViewModels;
 using ErpDDDBasico.Domain.Entities;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
@@ -103,21 +104,98 @@ namespace ErpDDDBasico.AspNetMvc.Areas.RecursosHumanos.Controllers
 
         public ActionResult BuscarTodosFuncionarios()
         {
+            return View();
+        }
+
+        [HttpGet]
+        public PartialViewResult GridFuncionarios(string ordenacao, string stringPesquisa, string filtroAtual, int? pagina)
+        {
+            ViewBag.OrdernacaoAtual = ordenacao;
+            ViewBag.NomeOrdernacao = string.IsNullOrEmpty(ordenacao) ? "nome_desc" : "";
+            ViewBag.DataCadastroOrdernacao = ordenacao == "data_cad_desc" ? "data_cad_cre" : "data_cad_desc";
+            ViewBag.SetorOrdenacao = ordenacao == "setor_desc" ? "setor_cre" : "setor_desc";
+
             TempData["Menu"] = "funcionarios";
             List<FuncionarioModel> funcionarioModels = new List<FuncionarioModel>();
 
+            if (stringPesquisa != null)
+            {
+                pagina = 1;
+            }
+            else
+            {
+                stringPesquisa = filtroAtual;
+            }
+
+            ViewBag.FiltroAtual = stringPesquisa;
+
             funcionarioModels = Mapper.Map<List<Funcionario>, List<FuncionarioModel>>(_funcionarioAppService.GetAll());
 
-            return View(funcionarioModels);
+            if (!String.IsNullOrEmpty(stringPesquisa))
+            {
+                funcionarioModels = funcionarioModels.Where(s => s.Nome.Contains(stringPesquisa)).ToList();
+            }
+
+            switch (ordenacao)
+            {
+                case "nome_desc":
+                    funcionarioModels = funcionarioModels.OrderByDescending(f => f.Nome).ToList();
+                    break;
+                case "data_cad_desc":
+                    funcionarioModels = funcionarioModels.OrderByDescending(f => f.Nome).ToList();
+                    break;
+                case "setor_desc":
+                    funcionarioModels = funcionarioModels.OrderByDescending(f => f.Setor).ToList();
+                    break;
+                case "setor_cre":
+                    funcionarioModels = funcionarioModels.OrderBy(f => f.Setor).ToList();
+                    break;
+                case "data_cad_cre":
+                    funcionarioModels = funcionarioModels.OrderBy(f => f.Nome).ToList();
+                    break;
+                default:
+                    funcionarioModels = funcionarioModels.OrderBy(f => f.Nome).ToList();
+                    break;
+            }
+
+            int paginaTamanho = 5;
+            int paginaNumero = (pagina ?? 1);
+
+            return PartialView(funcionarioModels.ToPagedList(paginaNumero, paginaTamanho));
         }
 
         public ActionResult HistoricoPagamentos()
         {
+            return View();
+        }
+
+        [HttpGet]
+        public PartialViewResult GridPagamentos(string ordenacao, string stringPesquisa, int? pagina, string filtroAtual)
+        {
+            ViewBag.OrdenacaoAtual = ordenacao;
+            ViewBag.NomeOrdenacao = string.IsNullOrEmpty(ordenacao) ? "nome_desc" : "";
+            ViewBag.TipoPagamentoOrdernacao = ordenacao == "tipo_pag_desc" ? "tipo_pag_cre" : "tipo_pag_desc";
+            ViewBag.ValorOrdernacao = ordenacao == "valor_desc" ? "valor_cre" : "valor_desc";
+            ViewBag.DataPagamentoOrdernacao = ordenacao == "data_pag_desc" ? "data_pag_cre" : "data_pag_desc";
+
+            if (stringPesquisa != null)
+            {
+                pagina = 1;
+            }
+            else
+            {
+                stringPesquisa = filtroAtual;
+            }
+
+            ViewBag.FiltroAtual = stringPesquisa;
+
             TempData["Menu"] = "pagamentos";
+
             List<PagamentoViewModel> pagamentoViewModels = new List<PagamentoViewModel>();
 
             try
             {
+                var pag = _pagamentoAppService.GetAll();
                 pagamentoViewModels = Mapper.Map<List<Pagamento>, List<PagamentoViewModel>>(_pagamentoAppService.GetAll());
             }
             catch (DbEntityValidationException ex)
@@ -133,11 +211,56 @@ namespace ErpDDDBasico.AspNetMvc.Areas.RecursosHumanos.Controllers
                 }
                 throw new Exception(errors);
             }
+            catch (AutoMapperMappingException ex)
+            {
+                throw ex;
+            }
             catch (Exception ex)
             {
                 throw ex;
             }
-            return View(pagamentoViewModels);
+
+            switch (ordenacao)
+            {
+                case "nome_desc":
+                    pagamentoViewModels = pagamentoViewModels.OrderByDescending(f => f.Funcionario.Nome).ToList();
+                    break;
+                case "nome_cre":
+                    pagamentoViewModels = pagamentoViewModels.OrderBy(f => f.Funcionario.Nome).ToList();
+                    break;
+                case "tipo_pag_desc":
+                    pagamentoViewModels = pagamentoViewModels.OrderByDescending(f => f.TipoPagamento.Descricao).ToList();
+                    break;
+                case "tipo_pag_cre":
+                    pagamentoViewModels = pagamentoViewModels.OrderBy(f => f.TipoPagamento.Descricao).ToList();
+                    break;
+                case "data_pag_desc":
+                    pagamentoViewModels = pagamentoViewModels.OrderByDescending(f => f.DataPagamento).ToList();
+                    break;
+                case "data_pag_cre":
+                    pagamentoViewModels = pagamentoViewModels.OrderBy(f => f.DataPagamento).ToList();
+                    break;
+                case "setor_desc":
+                    pagamentoViewModels = pagamentoViewModels.OrderByDescending(f => f.Funcionario.Setor).ToList();
+                    break;
+                case "setor_cre":
+                    pagamentoViewModels = pagamentoViewModels.OrderBy(f => f.Funcionario.Setor).ToList();
+                    break;
+                case "valor_desc":
+                    pagamentoViewModels = pagamentoViewModels.OrderByDescending(f => f.Valor).ToList();
+                    break;
+                case "valor_cre":
+                    pagamentoViewModels = pagamentoViewModels.OrderBy(f => f.Valor).ToList();
+                    break;
+                default:
+                    pagamentoViewModels = pagamentoViewModels.OrderByDescending(f => f.Funcionario.Nome).ToList();
+                    break;
+            }
+
+            int paginaTamanho = 5;
+            int paginaNumero = (pagina ?? 1);
+
+            return PartialView(pagamentoViewModels.ToPagedList(paginaNumero, paginaTamanho));
         }
 
         [HttpGet]

@@ -1,7 +1,5 @@
-﻿@model IEnumerable<ErpDDDBasico.AspNetMvc.Models.FuncionarioModel>
-
-@{
-    ViewBag.Title = "BuscarTodosFuncionarios";
+﻿@{
+    ViewBag.Title = "Funcionarios";
     Layout = "~/Areas/RecursosHumanos/Views/Shared/_LayoutRecursosHumanos.cshtml";
 }
 <br />
@@ -10,57 +8,11 @@
 <p>
     @Html.ActionLink("Cadastrar funcionário", "CadastrarFuncionario", new { area = "RecursosHumanos" }, null)
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SobreNome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SobreNome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Setor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataCadastro)
-        </th>
-        <th></th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SobreNome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ramal)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Setor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataCadastro)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "EditarFuncionario", "Home", new { area = "RecursosHumanos", id = item.FuncionarioId }, null) |
-                @Html.ActionLink("Detalhes", "DetalharFuncionario", "Home", new { area = "RecursosHumanos", id = item.FuncionarioId }, null) |
-                <a href="#" onclick="excluir('@item.FuncionarioId')">Excluir</a>
-            </td>
-        </tr>
+<div id="grid-funcionarios">
+    @{
+        Html.RenderAction("GridFuncionarios", "Home", new { area = "RecursosHumanos" });
     }
-</table>
+</div>
 <script>
     function excluir(id) {
         var r = confirm('Confirma exclusão?');

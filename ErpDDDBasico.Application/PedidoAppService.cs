@@ -1,6 +1,7 @@
 ﻿using ErpDDDBasico.Application.Interfaces;
 using ErpDDDBasico.Domain.Entities;
 using ErpDDDBasico.Domain.Interfaces.Services;
+using System.Collections.Generic;
 
 namespace ErpDDDBasico.Application
 {
@@ -16,6 +17,11 @@ namespace ErpDDDBasico.Application
         public void AddPedidoDetalhe(PedidoDetalhes pedidoDetalhes)
         {
             _pedidoService.AddPedidoDetalhe(pedidoDetalhes);
+        }
+
+        public void AddPedidoDetalheRange(List<PedidoDetalhes> pedidoDetalhes)
+        {
+            _pedidoService.AddPedidoDetalheRange(pedidoDetalhes);
         }
     }
 }

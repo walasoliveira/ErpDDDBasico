@@ -14,6 +14,9 @@ namespace ErpDDDBasico.Infra.Data.EntityConfig
 
             Property(p => p.Valor).IsRequired();
 
+            //HasRequired(p => p.TipoPagamento)
+            //    .WithRequiredPrincipal();
+
             HasRequired(p => p.Funcionario)
                 .WithMany(f => f.Pagamento)
                 .HasForeignKey<int>(f => f.FuncionarioId);

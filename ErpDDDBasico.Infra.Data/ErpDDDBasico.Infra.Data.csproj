@@ -67,6 +67,22 @@
     <Compile Include="Migrations\201902031656098_IncluidoTipoPagamentoConfigNoContext.Designer.cs">
       <DependentUpon>201902031656098_IncluidoTipoPagamentoConfigNoContext.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902141522254_AddEmailTelefoneCliente.cs" />
+    <Compile Include="Migrations\201902141522254_AddEmailTelefoneCliente.Designer.cs">
+      <DependentUpon>201902141522254_AddEmailTelefoneCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902141636423_AjusteEntidadePagamento.cs" />
+    <Compile Include="Migrations\201902141636423_AjusteEntidadePagamento.Designer.cs">
+      <DependentUpon>201902141636423_AjusteEntidadePagamento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902141803436_AjusteRelacionamentoFuncionarioPagamento.cs" />
+    <Compile Include="Migrations\201902141803436_AjusteRelacionamentoFuncionarioPagamento.Designer.cs">
+      <DependentUpon>201902141803436_AjusteRelacionamentoFuncionarioPagamento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902150035530_AjusteEntidadePedido.cs" />
+    <Compile Include="Migrations\201902150035530_AjusteEntidadePedido.Designer.cs">
+      <DependentUpon>201902150035530_AjusteEntidadePedido.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\FuncionarioRepository.cs" />
@@ -92,6 +108,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902031656098_IncluidoTipoPagamentoConfigNoContext.resx">
       <DependentUpon>201902031656098_IncluidoTipoPagamentoConfigNoContext.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902141522254_AddEmailTelefoneCliente.resx">
+      <DependentUpon>201902141522254_AddEmailTelefoneCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902141636423_AjusteEntidadePagamento.resx">
+      <DependentUpon>201902141636423_AjusteEntidadePagamento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902141803436_AjusteRelacionamentoFuncionarioPagamento.resx">
+      <DependentUpon>201902141803436_AjusteRelacionamentoFuncionarioPagamento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902150035530_AjusteEntidadePedido.resx">
+      <DependentUpon>201902150035530_AjusteEntidadePedido.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

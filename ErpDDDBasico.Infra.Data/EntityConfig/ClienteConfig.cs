@@ -15,6 +15,10 @@ namespace ErpDDDBasico.Infra.Data.EntityConfig
 
             Property(c => c.Cpf).HasMaxLength(14).IsRequired();
 
+            Property(c => c.Email).HasMaxLength(30).IsRequired();
+
+            Property(c => c.Telefone).HasMaxLength(30).IsRequired();
+
             Property(c => c.Endereco.Logradouro).HasColumnName("Logradouro").HasMaxLength(Endereco.LogradouroMaxLenght).IsRequired();
 
             Property(c => c.Endereco.Numero).HasColumnName("Numero").HasMaxLength(Endereco.NumeroMaxLenght).IsRequired();

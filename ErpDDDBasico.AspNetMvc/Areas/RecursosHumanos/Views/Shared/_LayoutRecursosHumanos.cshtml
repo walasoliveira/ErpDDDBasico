@@ -6,6 +6,7 @@
     <title>Erp Basic - Vendas</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <header>
@@ -18,7 +19,7 @@
                 <div class="navbar-collapse collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item home">
-                            <a class="nav-link" href="#">@Html.ActionLink("Cadastrar", "CadastrarFuncionario", "Home", new { area = "RecursosHumanos" }, new { @class = "nav-link" })<span class="sr-only">(current)</span></a>
+                            @Html.ActionLink("Inicio", "Index", "Home", new { area = "RecursosHumanos" }, new { @class = "nav-link" })<span class="sr-only">(current)</span>
                         </li>
                         <li class="nav-item funcionarios dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -35,9 +36,10 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 @Html.ActionLink("Realizar Pagamento", "RealizarPagamento", "Home", new { area = "RecursosHumanos" }, new { @class = "nav-link" })
-                                @Html.ActionLink("Histórico", "BuscarTodosFuncionarios", "Home", new { area = "RecursosHumanos" }, new { @class = "nav-link" })
+                                @Html.ActionLink("Histórico", "HistoricoPagamentos", "Home", new { area = "RecursosHumanos" }, new { @class = "nav-link" })
                             </div>
                         </li>
+                        <li class="nav-item">@Html.ActionLink("Sair", "Logout", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     </ul>
                 </div>
             </div>
@@ -51,10 +53,15 @@
         </footer>
     </div>
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     <script>
         $(function () {
+            $('.money').mask('000.000.000.000.000,00', { reverse: true });
+
             var menu = '@TempData["Menu"]';
             if (menu == 'home' || menu == null || menu == '') {
                 $(".home").addClass("active");

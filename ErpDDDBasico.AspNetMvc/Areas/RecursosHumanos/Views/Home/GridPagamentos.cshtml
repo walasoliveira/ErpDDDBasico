@@ -1,0 +1,86 @@
+﻿@model IPagedList<ErpDDDBasico.AspNetMvc.ViewModels.PagamentoViewModel>
+@using PagedList.Mvc
+
+
+@using (Ajax.BeginForm("GridPagamentos", "Home", new { area = "RecursosHumanos" }, new AjaxOptions
+{
+    UpdateTargetId = "grid-pagamentos",
+    InsertionMode = InsertionMode.Replace,
+    HttpMethod = "GET"
+}, new { @class = "form-inline" }))
+{
+    <p>
+        Buscar por Nome: @Html.TextBox("stringPesquisa", ViewBag.FiltroAtual as string, new { @class = "form-control" })
+        <input type="submit" value="Buscar" class="btn btn-secondary" />
+    </p>
+}
+<table class="table table-striped table-hover table-responsive-md">
+    <tr>
+        <th>
+            PagamentoId
+        </th>
+        <th>
+            @Ajax.ActionLink("Funcionario", "GridPagamentos", "Home", new { area = "RecursosHumanos", ordenacao = ViewBag.NomeOrdernacao, filtroAtual = ViewBag.FiltroAtual }, new AjaxOptions
+       {
+           UpdateTargetId = "grid-pagamentos",
+           InsertionMode = InsertionMode.Replace,
+           HttpMethod = "GET"
+       }, null)
+        </th>
+        <th>
+            @Ajax.ActionLink("TipoPagamento", "GridPagamentos", "Home", new { area = "RecursosHumanos", ordenacao = ViewBag.TipoPagamentoOrdernacao, filtroAtual = ViewBag.FiltroAtual }, new AjaxOptions
+       {
+           UpdateTargetId = "grid-pagamentos",
+           InsertionMode = InsertionMode.Replace,
+           HttpMethod = "GET"
+       }, null)
+        </th>
+        <th>
+            @Ajax.ActionLink("Valor", "GridPagamentos", "Home", new { area = "RecursosHumanos", ordenacao = ViewBag.ValorOrdernacao, filtroAtual = ViewBag.FiltroAtual }, new AjaxOptions
+       {
+           UpdateTargetId = "grid-pagamentos",
+           InsertionMode = InsertionMode.Replace,
+           HttpMethod = "GET"
+       }, null)
+        </th>
+        <th>
+            @Ajax.ActionLink("DataPagamento", "GridPagamentos", "Home", new { area = "RecursosHumanos", ordenacao = ViewBag.DataPagamentoOrdernacao, filtroAtual = ViewBag.FiltroAtual }, new AjaxOptions
+       {
+           UpdateTargetId = "grid-pagamentos",
+           InsertionMode = InsertionMode.Replace,
+           HttpMethod = "GET"
+       }, null)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PagamentoId)
+            </td>
+            <td>
+                <span>@item.Funcionario.Nome @item.Funcionario.SobreNome</span>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoPagamento.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Valor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataPagamento)
+            </td>
+        </tr>
+    }
+
+</table>
+<br />
+Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+@Html.PagedListPager(Model, pagina => Url.Action("GridPagamentos", "Home",
+    new { area = "RecursosHumanos", pagina, ordernacao = ViewBag.OrdernacaoAtual, filtroAtual = ViewBag.FiltroAtual }),PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions {
+        UpdateTargetId = "grid-pagamentos",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "GET"
+    }))

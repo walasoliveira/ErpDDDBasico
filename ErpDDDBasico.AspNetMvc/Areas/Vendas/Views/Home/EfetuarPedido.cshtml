@@ -7,120 +7,192 @@
 <br />
 <h2>Pedido</h2>
 <br />
+<div id="div-form-produto">
+    @{
+        Html.RenderAction("PartialInputsPedidoDetalhes", "Home", new { area = "Vendas" });
+    }
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="produtos-added card-columns">
+
+        </div>
+    </div>
+</div>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>PedidoViewModel</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Usuario.UsuarioId)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PedidoDetalhe.ProdutoModel, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.PedidoDetalhe.ProdutoModel, new SelectList(ViewBag.Produtos, "ProdutoId", "Nome"), "Selecione...", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.PedidoDetalhe.ProdutoModel, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PedidoDetalhe.ValorUnitario, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PedidoDetalhe.ValorUnitario, new { htmlAttributes = new { @class = "form-control", @disabled = true } })
-                @Html.ValidationMessageFor(model => model.PedidoDetalhe.ValorUnitario, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PedidoDetalhe.ValorDesconto, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PedidoDetalhe.ValorDesconto, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PedidoDetalhe.ValorDesconto, "", new { @class = "text-danger" })
-            </div>
-        </div>
         <hr />
-        <div class="form-group">
-            @Html.LabelFor(model => model.Cliente.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Cliente.Nome, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Cliente.Nome, "", new { @class = "text-danger" })
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.Cliente.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div>
+                    @Html.EditorFor(model => model.Cliente.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Cliente.Nome, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.Cliente.Cpf, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div>
+                    @Html.EditorFor(model => model.Cliente.Cpf, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Cliente.Cpf, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Cliente.Cpf, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Cliente.Cpf, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Cliente.Cpf, "", new { @class = "text-danger" })
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.Cliente.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div>
+                    @Html.EditorFor(model => model.Cliente.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Cliente.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.Cliente.Telefone, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div>
+                    @Html.EditorFor(model => model.Cliente.Telefone, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Cliente.Telefone, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Cliente.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Cliente.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Cliente.Email, "", new { @class = "text-danger" })
+        <div class="form-row">
+            <div class="form-group col-md-5">
+                @Html.LabelFor(model => model.Cliente.Logradouro, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div>
+                    @Html.EditorFor(model => model.Cliente.Logradouro, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Cliente.Logradouro, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(model => model.Cliente.Numero, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div>
+                    @Html.EditorFor(model => model.Cliente.Numero, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Cliente.Numero, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.Cliente.Complemento, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div>
+                    @Html.EditorFor(model => model.Cliente.Complemento, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Cliente.Complemento, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Cliente.Telefone, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Cliente.Telefone, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Cliente.Telefone, "", new { @class = "text-danger" })
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.Cliente.Bairro, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div>
+                    @Html.EditorFor(model => model.Cliente.Bairro, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Cliente.Bairro, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.Cliente.Cidade, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div>
+                    @Html.EditorFor(model => model.Cliente.Cidade, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Cliente.Cidade, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Cliente.Logradouro, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Cliente.Logradouro, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Cliente.Logradouro, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Cliente.Numero, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Cliente.Numero, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Cliente.Numero, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Cliente.Complemento, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Cliente.Complemento, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Cliente.Complemento, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Cliente.Bairro, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Cliente.Bairro, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Cliente.Bairro, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Cliente.Cidade, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Cliente.Cidade, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Cliente.Cidade, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Finalizar Venda" class="btn btn-danger" />
             </div>
         </div>
     </div>
 }
+<script>
+    function guardarProduto(produto) {
+        if (produto != null) {
+            $('#card-' + produto.GuidPedidoDetalhe).remove();
 
-<div>
-    @Html.ActionLink("Voltar para página inicial", "Index", "Home", new { area = "Vendas" }, null)
-</div>
+            var valorPedido = (produto.ValorFinal == null) ? produto.ValorUnitario : produto.ValorFinal;
+
+            var aux = '<div id=\'card-' + produto.GuidPedidoDetalhe + '\' class=\'card\' style=\'width: 18rem;\'>'
+                + '<div class=\'card-body\'>'
+                + '<h5 class=\'card-title\'>' + produto.Nome + '</h5>'
+                + '<p class=\'card-text\'>' + valorPedido + '</p>'
+                + '<button onclick=\'alterarProduto(' + produto + ')\' class=\'btn btn-danger\' style=\'margin-right: 5px;\'>Alterar</button>'
+                + '<button onclick=\'removerProduto("' + produto.GuidPedidoDetalhe + '")\' class=\'btn btn-danger\'>Excluir</button></div></div>';
+            $(".produtos-added").append(aux);
+        }
+    }
+
+    function cancelarAlteracao(guid) {
+        $('#card-' + guid).toggle();
+        $('#btn-submit').val("Incluir");
+        $('#btn-cancelar').css("display", "none");
+
+        $("#idPedidoDetalhe").val(null);
+
+        $("#form-produto #ValorUnitario").val(null);
+        $("#form-produto #ValorUnitarioBloqueado").val(null);
+
+        $("#form-produto #ValorDesconto").val(null);
+        $("#form-produto #ValorDescontoBloqueado").val(null);
+
+        $("#form-produto #ValorFinal").val(null);
+        $("#form-produto #ValorFinalBloqueado").val(null);
+    }
+
+    function removerProduto(id) {
+        var url = '@Url.Action("RemoverProduto", "Home", new { area = "Vendas" })';
+        $.ajax({
+            method: 'POST',
+            url: url,
+            data: { guidPedidoDetalhe : id },
+            success: function (data) {
+                var obj = JSON.parse(data);
+                $('#card-' + obj.GuidPedidoDetalhe).remove();
+
+                $("#idPedidoDetalhe").val(null);
+
+                $("#form-produto #ValorUnitario").val(null);
+                $("#form-produto #ValorUnitarioBloqueado").val(null);
+
+                $("#form-produto #ValorDesconto").val(null);
+                $("#form-produto #ValorDescontoBloqueado").val(null);
+
+                $("#form-produto #ValorFinal").val(null);
+                $("#form-produto #ValorFinalBloqueado").val(null);
+            },
+            error: function (request, status, error) {
+                console.log(request.responseText);
+                console.log(status);
+                console.log(error);
+            }
+        });
+    }
+
+    function alterarProduto(produto) {
+        $('#btn-submit').val("Confirmar");
+
+        $('#btn-cancelar').css("display", "inline");
+
+        $('#btn-cancelar').attr("onclick", 'cancelarAlteracao(\'' + produto.GuidPedidoDetalhe + '\')');
+
+        $('#card-' + produto.GuidPedidoDetalhe).toggle();
+
+        $("#idPedidoDetalhe").val(produto.GuidPedidoDetalhe);
+
+        $('#ProdutoId').val(produto.ProdutoId);
+
+        $("#form-produto #ValorUnitario").val(produto.ValorUnitario);
+        $("#form-produto #ValorUnitarioBloqueado").val(produto.ValorUnitario);
+
+        $("#form-produto #ValorDesconto").val(produto.ValorDesconto);
+        $("#form-produto #ValorDescontoBloqueado").val(produto.ValorDesconto);
+
+        var valorPedido = (produto.ValorFinal == null) ? produto.ValorUnitario : produto.ValorFinal;
+
+        $("#form-produto #ValorFinal").val(valorPedido);
+        $("#form-produto #ValorFinalBloqueado").val(valorPedido);
+
+        $(".money").mask('000.000.000.000.000,00', { reverse: false });
+        $(".money").mask('000.000.000.000.000,00', { reverse: true });
+    }
+</script>

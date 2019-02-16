@@ -1,0 +1,125 @@
+﻿@model ErpDDDBasico.AspNetMvc.ViewModels.PedidoDetalheViewModel
+@using System.Web.Script.Serialization;
+@using (Ajax.BeginForm("AdicionarOuAtualizarProduto", "Home", new { area = "Vendas" }, new AjaxOptions
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "div-form-produto",
+    InsertionMode = InsertionMode.Replace
+}, new { id = "form-produto" }))
+{
+    @Html.Hidden("idPedidoDetalhe", "")
+    <div class="form-group">
+        @Html.LabelFor(model => model.ProdutoModel, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div>
+            @Html.DropDownListFor(model => model.ProdutoId, new SelectList(ViewBag.Produtos, "ProdutoId", "Nome"), "Selecione...", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ProdutoId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ValorUnitario, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div>
+            @Html.HiddenFor(model => model.ValorUnitario)
+            @Html.Editor("ValorUnitarioBloqueado", "", new { htmlAttributes = new { @class = "form-control money", @disabled = true } })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ValorDesconto, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div>
+            @Html.EditorFor(model => model.ValorDesconto, new { htmlAttributes = new { @class = "form-control money" } })
+            @Html.ValidationMessageFor(model => model.ValorDesconto, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ValorFinal, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div>
+            @Html.HiddenFor(model => model.ValorFinal)
+            @Html.Editor("ValorFinalBloqueado", "", new { htmlAttributes = new { @class = "form-control money", @disabled = true } })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" id="btn-submit" value="Incluir" class="btn btn-danger" />
+            <input id="btn-cancelar" type="reset" class="btn btn-secondary" value="Cancelar" style="display:none;" />
+        </div>
+    </div>
+}
+<script>
+    $(function () {
+        guardarProduto(@Html.Raw(ViewBag.PedidoDetalheAdicionado));
+
+        var menu = '@TempData["Menu"]';
+
+            if (menu == 'home' || menu == null || menu == '') {
+                $(".home").addClass("active");
+            }
+            else if (menu == 'efetuar-pedido') {
+                $(".efetuar-pedido").addClass("active");
+            }
+            else {
+                $(".historico-pedidos").addClass("active");
+            }
+
+            $("#ProdutoId").change(function (e) {
+                var id = $(this).val();
+                if (id == "" || id == null) {
+                    $('#ProdutoId').val(null);
+
+                    $("#id").val(null);
+
+                    $("#form-produto #ValorUnitario").val(null);
+                    $("#form-produto #ValorUnitarioBloqueado").val(null);
+
+                    $("#form-produto #ValorDesconto").val(null);
+                    $("#form-produto #ValorDescontoBloqueado").val(null);
+
+                    $("#form-produto #ValorFinal").val(null);
+                    $("#form-produto #ValorFinalBloqueado").val(null);
+                }
+                else {
+                    var url = '@Url.Action("BuscarValorProduto", "Home",new { area = "Vendas"})/' + id;
+                    $.ajax({
+                        url: url,
+                        method: 'GET',
+                        success: function (data) {
+                            var valorDecimal = parseFloat(data);
+                            var valorString = data.replace(".", ",");
+                            $("#ValorUnitarioBloqueado").maskMoney("mask", valorDecimal);
+                            $("#ValorUnitario").val(valorString);
+
+                            $("#ValorFinalBloqueado").maskMoney("mask", valorDecimal);
+                            $("#ValorFinal").val(valorString);
+                        },
+                        error: function (request, status, error) {
+                            console.log(request.responseText);
+                            console.log(status);
+                            console.log(error);
+                        }
+                    });
+                }
+            });
+
+            $("#ValorDesconto").keyup(function (e) {
+                var aux = parseFloat($(this).val().replace(/\./g, "").replace(",", "."));
+
+                if (aux != "NaN") {
+                    var valorUnitario = parseFloat($("#ValorUnitarioBloqueado").val().replace(".", "").replace(",", ".")).toFixed(2);
+
+                    var valorDesconto = aux;
+
+                    var valorFinal = valorUnitario - valorDesconto;
+
+                    var aux = valorFinal.toFixed(2);
+                    $("#ValorFinalBloqueado").maskMoney("mask", parseFloat(aux));
+                    $("#ValorFinal").val(aux.toString().replace(".", ","));
+                }
+                else {
+                    $("#ValorFinal").val($("#ValorUnitario").val());
+                    $("#ValorFinalBloqueado").val($("#ValorUnitarioBloqueado").val());
+                };
+            });
+
+        $(".money").maskMoney({ thousands: '.', decimal: ',', allowNegative: true, allowZero: true });
+    })
+</script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

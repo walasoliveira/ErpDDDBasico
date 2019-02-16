@@ -22,10 +22,28 @@ namespace ErpDDDBasico.AspNetMvc.AutoMapper
                 .ForPath(destino => destino.Endereco.Bairro, origem => origem.MapFrom(u => u.Bairro))
                 .ForPath(destino => destino.Endereco.Cidade, origem => origem.MapFrom(u => u.Cidade));
 
+            CreateMap<ClienteModel, Cliente>()
+                .ForPath(destino => destino.Endereco.Logradouro, origem => origem.MapFrom(c => c.Logradouro))
+                .ForPath(destino => destino.Endereco.Numero, origem => origem.MapFrom(c => c.Numero))
+                .ForPath(destino => destino.Endereco.Complemento, origem => origem.MapFrom(c => c.Complemento))
+                .ForPath(destino => destino.Endereco.Bairro, origem => origem.MapFrom(c => c.Bairro))
+                .ForPath(destino => destino.Endereco.Cidade, origem => origem.MapFrom(c => c.Cidade))
+                .ForPath(destino => destino.Pedido, origem => origem.Ignore());
+
             CreateMap<PedidoViewModel,Pedido>()
                 .ForPath(destino => destino.Cliente, origem => origem.MapFrom(u => u.Cliente))
+                .ForPath(destino => destino.Cliente.Endereco.Logradouro, origem => origem.MapFrom(u => u.Cliente.Logradouro))
+                .ForPath(destino => destino.Cliente.Endereco.Numero, origem => origem.MapFrom(u => u.Cliente.Numero))
+                .ForPath(destino => destino.Cliente.Endereco.Complemento, origem => origem.MapFrom(u => u.Cliente.Complemento))
+                .ForPath(destino => destino.Cliente.Endereco.Bairro, origem => origem.MapFrom(u => u.Cliente.Bairro))
+                .ForPath(destino => destino.Cliente.Endereco.Cidade, origem => origem.MapFrom(u => u.Cliente.Cidade))
+                .ForPath(destino => destino.Cliente.Pedido, origem => origem.Ignore())
+                .ForPath(destino => destino.Usuario, origem => origem.Ignore())
                 .ForPath(destino => destino.UsuarioId, origem => origem.MapFrom(u => u.Usuario.UsuarioId))
                 .ForPath(destino => destino.PedidoDetalhes, origem => origem.Ignore());
+
+            CreateMap<PedidoDetalheViewModel, PedidoDetalhes>()
+                .ForPath(destino => destino.Pedido, origem => origem.Ignore());
 
             CreateMap<ProdutoModel, Produto>();
             CreateMap<ModuloModel, Modulo>();

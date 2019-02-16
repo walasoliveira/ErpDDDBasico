@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "Pedidos";
+    Layout = "~/Areas/Vendas/Views/Shared/_LayoutVendas.cshtml";
+}
+<p>
+    <h2>Pedidos</h2>
+</p>
+<div id="grid-pedidos">
+    @{
+        Html.RenderAction("GridPedidos", "Home", new { area = "Vendas" });
+    }
+</div>

@@ -36,7 +36,7 @@ namespace ErpDDDBasico.AspNetMvc.Controllers
             UsuarioModel model = Mapper.Map<Usuario, UsuarioModel>(_usuarioAppService.BuscaUsuario(usuarioModel.UsuarioLogin, usuarioModel.UsuarioSenha));
             
             if (model == null)
-                return View(usuarioModel);
+                return View(usuarioModel);            
 
             //List<string> permissoes = new List<string>();
 

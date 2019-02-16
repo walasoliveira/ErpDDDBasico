@@ -1,7 +1,5 @@
-﻿@model IEnumerable<ErpDDDBasico.AspNetMvc.ViewModels.PagamentoViewModel>
-
-@{
-    ViewBag.Title = "HistoricoPagamentos";
+﻿@{
+    ViewBag.Title = "Pagamentos";
     Layout = "~/Areas/RecursosHumanos/Views/Shared/_LayoutRecursosHumanos.cshtml";
 }
 <br />
@@ -10,44 +8,8 @@
 <p>
     @Html.ActionLink("Realizar pagamento", "RealizarPagamento", "Home", new { area = "RecursosHumanos" }, null)
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.PagamentoId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Funcionario)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TipoPagamento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Valor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataPagamento)
-        </th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PagamentoId)
-            </td>
-            <td>
-                <span>@item.Funcionario.Nome @item.Funcionario.SobreNome</span>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TipoPagamento.Descricao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Valor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataPagamento)
-            </td>
-        </tr>
+<div id="grid-pagamentos">
+    @{
+        Html.RenderAction("GridPagamentos", "Home", new { area = "RecursosHumanos" });
     }
-
-</table>
+</div>

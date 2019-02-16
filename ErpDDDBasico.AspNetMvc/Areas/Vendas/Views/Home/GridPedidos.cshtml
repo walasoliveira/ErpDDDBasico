@@ -1,0 +1,61 @@
+﻿@model IPagedList<ErpDDDBasico.AspNetMvc.ViewModels.PedidoViewModel>
+
+@using PagedList.Mvc;
+
+@using (Ajax.BeginForm("GridProdutos", "Home", new { area = "Vendas" }, new AjaxOptions
+{
+    UpdateTargetId = "grid-pedidos",
+    InsertionMode = InsertionMode.Replace,
+    HttpMethod = "GET"
+}, new { @class = "form-inline" }))
+{
+    <p>
+        Buscar por Nome: @Html.TextBox("stringPesquisa", ViewBag.FiltroAtual as string, new { @class = "form-control" })
+        <input type="submit" value="Buscar" class="btn btn-secondary" />
+    </p>
+}
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Ajax.ActionLink("Cliente", "GridPedidos", "Home", new { area = "Vendas", ordenacao = ViewBag.ClienteOrdenacao, filtroAtual = ViewBag.FiltroAtual }, new AjaxOptions {
+          UpdateTargetId = "grid-pedidos",
+          InsertionMode = InsertionMode.Replace,
+          HttpMethod = "GET"
+      }, null)
+            </th>
+            <th>
+                @Ajax.ActionLink("Valor Final", "GridPedidos", "Home", new { area = "Vendas", ordenacao = ViewBag.ValorFinalOrdenacao, filtroAtual = ViewBag.FiltroAtual }, new AjaxOptions {
+    UpdateTargetId = "grid-pedidos",
+    InsertionMode = InsertionMode.Replace,
+    HttpMethod = "GET"
+    },null)
+            </th>
+            <th>
+                @Ajax.ActionLink("Data do Pedido", "GridPedidos", "Home", new { area = "Vendas", ordenacao = ViewBag.DataPedidoOrdenacao, filtroAtual = ViewBag.FiltroAtual }, new AjaxOptions {
+    UpdateTargetId = "grid-pedidos",
+    InsertionMode = InsertionMode.Replace,
+    HttpMethod = "GET"
+    },null)
+            </th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Cliente.Nome</td>
+            <td>@item.DataCadastro</td>
+            <td>@item.ValorTotal</td>
+        </tr>
+    }
+</table>
+<br />
+Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+@Html.PagedListPager(Model, pagina => Url.Action("HistoricoPedidos", "Home",
+    new { area = "Vendas", pagina, ordernacao = ViewBag.OrdernacaoAtual, filtroAtual = ViewBag.FiltroAtual }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions()
+    {
+        HttpMethod = "GET",
+        UpdateTargetId = "grid-pedidos",
+        InsertionMode = InsertionMode.Replace
+    }))
